@@ -4,9 +4,9 @@ var http_proxy = 'SOCKS 127.0.0.1:7070';
 //var http_proxy = 'PROXY 127.0.0.1:7070; DIRECT';
 
 var gfwed_list = [
-		"192.168.44.200",
-        "192.168.44.200:18080",
-        "baidu.com"
+        "192.168.44.200",
+        "192.168.44.12",
+        "bfdabc.com"
 ];
 
 var gfwed = {};
@@ -26,8 +26,9 @@ function host2domain(host) {
 };
 
 function FindProxyForURL(url, host) {
-		//if (gfwed[host])
-			//return http_proxy;
-        //return gfwed[host2domain(host)] ? http_proxy : direct;
-        return 'SOCKS 127.0.0.1:7070';
+		if (gfwed[host])
+			return http_proxy;
+		if (host.indexOf("bjlg")==0)
+			return http_proxy;
+        return gfwed[host2domain(host)] ? http_proxy : direct;
 };
