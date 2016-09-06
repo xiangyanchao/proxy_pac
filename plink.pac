@@ -1,6 +1,7 @@
 var direct = 'DIRECT';
-//var http_proxy = 'SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT';
-var http_proxy = 'PROXY 127.0.0.1:7070; DIRECT';
+var http_proxy = 'SOCKS 127.0.0.1:7070';
+//var http_proxy = 'SOCKS5 127.0.0.1:7070; SOCKS 127.0.0.1:7070; DIRECT';
+//var http_proxy = 'PROXY 127.0.0.1:7070; DIRECT';
 
 var gfwed_list = [
 		"192.168.44.200",
@@ -25,5 +26,7 @@ function host2domain(host) {
 };
 
 function FindProxyForURL(url, host) {
+		if (gfwed[host])
+			return http_proxy;
         return gfwed[host2domain(host)] ? http_proxy : direct;
 };
